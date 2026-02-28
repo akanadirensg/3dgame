@@ -1,50 +1,56 @@
-import * as THREE from 'three';
-import { createBuilding } from './building';
-import { createRoad } from './roads';
+import * as THREE from "three";
+import { createBuilding } from "./building";
+import { createRoad } from "./roads";
 
-export function createCity(
+export async function createCity(
   buildingsGroup: THREE.Group,
   roadsGroup: THREE.Group,
-  size: number
+  size: number,
 ) {
   const spacing = 8;
   const roadWidth = 8;
   const roadlength = 4;
 
+  const promises: Promise<THREE.Group>[] = [];
+
   for (let x = -size; x <= size; x++) {
     for (let z = -size; z <= size; z++) {
-      // Créer le building
-      createBuilding(buildingsGroup, {
-        width: 3 ,
-        depth: 3 ,
-        height: 5 + Math.random() * 20,
-        position: new THREE.Vector3(
-          x * spacing,
-          0,
-          z * spacing
-        ),
-        color: 0x555555 + Math.random() * 0x222222
-      });
+      const pos = new THREE.Vector3(x * spacing, 0, z * spacing);
 
-    }
-  }
-  for (let x =-size -0.5 ; x <= size +0.5; x++) {
-    for (let z = -size-0.5; z <=size +0.5; z++) {
-      createRoad(roadsGroup, new THREE.Vector3(x * spacing , 0, z * spacing),
-        roadWidth,     
-        roadlength )
-    }
-  }
-for (let z = -size-0.5; z <=size +0.5; z++){
-     for (let x =-size -0.5 ; x <= size +0.5; x++) {
-      createRoad(roadsGroup, new THREE.Vector3(x * spacing , 0, z * spacing),
-      roadlength,
-      roadWidth,     
-    )
+      const modelIndex = Math.floor(Math.random() * 3);
 
+      // stockage de la promesse de chargement dans un tableau
+      promises.push(
+        createBuilding(buildingsGroup, {
+          modelIndex,
+          position: pos,
+        }),
+      );
     }
   }
 
+  // Charger tous les bâtiments en parallèle
+  await Promise.all(promises);
+  console.log("Tous les bâtiments GLB ont été chargés !");
 
-  
+  for (let x = -size - 0.5; x <= size + 0.5; x++) {
+    for (let z = -size - 0.5; z <= size + 0.5; z++) {
+      createRoad(
+        roadsGroup,
+        new THREE.Vector3(x * spacing, 0, z * spacing),
+        roadWidth,
+        roadlength,
+      );
+    }
+  }
+  for (let z = -size - 0.5; z <= size + 0.5; z++) {
+    for (let x = -size - 0.5; x <= size + 0.5; x++) {
+      createRoad(
+        roadsGroup,
+        new THREE.Vector3(x * spacing, 0, z * spacing),
+        roadlength,
+        roadWidth,
+      );
+    }
+  }
 }
