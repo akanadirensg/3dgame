@@ -40,8 +40,6 @@ export function createMouse(
 
   //  Chargement du modèle
   let mixer: THREE.AnimationMixer | null = null;
-  // it is used
-  let modelLoaded = false;
 
   function loadModel() {
     const path = MODELS[Math.floor(Math.random() * MODELS.length)];
@@ -53,7 +51,6 @@ export function createMouse(
       const model = gltf.scene;
       model.scale.set(0.3, 0.3, 0.3);
       group.add(model);
-      modelLoaded = true;
 
       if (gltf.animations.length > 0) {
         mixer = new THREE.AnimationMixer(model);
