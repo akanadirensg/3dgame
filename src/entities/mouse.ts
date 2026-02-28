@@ -40,6 +40,7 @@ export function createMouse(
 
   //  Chargement du modèle
   let mixer: THREE.AnimationMixer | null = null;
+  // it is used
   let modelLoaded = false;
 
   function loadModel() {
