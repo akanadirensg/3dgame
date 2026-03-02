@@ -13,10 +13,10 @@ const RESPAWN_DELAY = 2.0; // secondes avant réapparition
 //
 
 const MODELS = [
-  "/models/Crab.gltf",
-  "/models/Bee.gltf",
-  "/models/Enemy.gltf",
-  "/models/Skull.gltf",
+  "/3dgame/models/Crab.gltf",
+  "/3dgame/models/Bee.gltf",
+  "/3dgame/models/Enemy.gltf",
+  "/3dgame/models/Skull.gltf",
 ];
 
 export function createMouse(

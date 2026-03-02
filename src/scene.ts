@@ -78,7 +78,7 @@ export function initScene(container: HTMLElement) {
 
   const bgMusic = new THREE.Audio(listener);
   let wantsMusic = false;
-  audioLoader.load("/sounds/bg-sound.mp3", (buf) => {
+  audioLoader.load("/3dgame/sounds/bg-sound.mp3", (buf) => {
     bgMusic.setBuffer(buf);
     bgMusic.setLoop(true);
     bgMusic.setVolume(0.3);
@@ -86,7 +86,7 @@ export function initScene(container: HTMLElement) {
   });
 
   const catchSound = new THREE.Audio(listener);
-  audioLoader.load("/sounds/catch.mp3", (buf) => {
+  audioLoader.load("/3dgame/sounds/catch.mp3", (buf) => {
     catchSound.setBuffer(buf);
     catchSound.setVolume(0.5);
   });
